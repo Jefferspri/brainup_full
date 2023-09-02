@@ -40,7 +40,6 @@ def elimina_señal(lst_tiempos):
 
 def clean_trs(t_details):
     t_details["tag"] = [text[11:13] if text!="click" else text for text in t_details["tag"]]
-
     # filter double click
     try:
         for i in range(len(t_details["tag"])):
@@ -117,6 +116,5 @@ def clean_trs(t_details):
         
     #for i in range(len(t_details["flag"])):
      #   print(t_details["tag"][i],t_details["flag"][i],t_details["tr"][i]) 
-     
     
     return t_details

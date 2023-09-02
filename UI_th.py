@@ -71,7 +71,7 @@ class MuseConex(tk.Frame):
         
         # create a figure
         self.fig, self.ax = plt.subplots(figsize=(16, 9))
-        self.fig.set_facecolor("#fafafa")
+        self.fig.set_facecolor("#ffffff")
         
         # create FigureCanvasTkAgg object
         self.graph = FigureCanvasTkAgg(self.fig, master=self)
@@ -149,7 +149,6 @@ class MuseConex(tk.Frame):
         
                 
 
-
 class FirstPage(tk.Frame):
 
     def __init__(self, parent, controller):
@@ -166,7 +165,7 @@ class FirstPage(tk.Frame):
                              en la prueba. Luego, "Entrenar" para acostumbrarse a la 
                              prueba. Finalmente, "Test"" para hacer la prueba completa.""",
                              fg="#384655", bg='#ffffff', font=("Arial", 24))
-        label_desc.place(x=190, y=200)
+        label_desc.place(x=190, y=180)
         
         btn_back = tk.Button(self, text="<<", font=("Arial", 20),relief="flat", bg='#fafafa',command=lambda: controller.show_frame(MuseConex))
         btn_back.place(x=1, y=1)
@@ -204,13 +203,13 @@ class SecondPage(tk.Frame):
         Button = tk.Button(self, text="<", bg='#ffffff', font=("Arial bold", 22), relief="flat",command=self.back_img)
         Button.place(x=1510, y=350)
         Button = tk.Button(self, text=">", bg='#ffffff', font=("Arial bold", 22), relief="flat",command=self.next_img)
-        Button.place(x=1580, y=350)
+        Button.place(x=1587, y=350)
 
         Button = tk.Button(self, text="Entrenar", font=("Arial", 20), relief="flat",command=lambda: controller.show_frame(ThirdPage))
-        Button.place(x=1500, y=650)
+        Button.place(x=1505, y=650)
         
         Button = tk.Button(self, text="Test", font=("Arial", 20), relief="flat",command=lambda: controller.show_frame(FourthPage))
-        Button.place(x=1525, y=750)
+        Button.place(x=1530, y=750)
         
         self.bind('<Enter>', self.enter)
         
@@ -249,17 +248,19 @@ class ThirdPage(tk.Frame):
         self.lbl_img = tk.Label(self, fg="#ffffff", bg='#ffffff')
         self.lbl_img.place(x=650,y=200)
 
-        Button = tk.Button(self, text="<<", font=("Arial", 20),relief="flat", bg='#fafafa',command=lambda: controller.show_frame(SecondPage))
-        Button.place(x=1, y=1)
+        self.btn_back = tk.Button(self, text="<<", font=("Arial", 20),relief="flat", bg='#fafafa',command=lambda: controller.show_frame(SecondPage))
+        self.btn_back.place(x=1, y=1)
         
-        Button = tk.Button(self, text="Test", font=("Arial", 20), relief="flat",command=lambda: controller.show_frame(FourthPage))
-        Button.place(x=1520, y=100)
+        self.btn_test = tk.Button(self, text="Test", font=("Arial", 20), relief="flat",command=lambda: controller.show_frame(FourthPage))
+        self.btn_test.place(x=1520, y=750)
         
-        Button = tk.Button(self, text="O", font=("Arial", 25), bg='#fafafa',relief="flat",command = async_handler(self.play_gif))
-        Button.place(x=1560, y=350)
-        
-        Button = tk.Button(self, text="                      ", relief="flat",font=("Arial", 20), bg="#036ffc", height= 4)
-        Button.place(x=1500, y=700)
+        self.btn_start = tk.Button(self, text="O", font=("Arial", 25), bg='#fafafa',relief="flat",command = async_handler(self.play_gif))
+        self.btn_start.place(x=1530, y=350)
+
+        self.bind('<Button-1>', self.probe)
+
+    def probe(self, event):
+        print("click")
         
     def creador_de_lista_final(self, tam):
         lista_final=[]
@@ -282,8 +283,12 @@ class ThirdPage(tk.Frame):
         
         
     async def play_gif(self):
+        self.btn_test.place_forget()
+        self.btn_start.place_forget()
+        self.btn_back.place_forget()
+
         images = []
-        lst_random_images = self.creador_de_lista_final(15)
+        lst_random_images = self.creador_de_lista_final(3) # 15
         
         len_list_images = len(lst_random_images)
         for l in range (len_list_images - 1):
@@ -311,6 +316,10 @@ class ThirdPage(tk.Frame):
                 break
         
         mixer.music.stop()
+
+        self.btn_test.place(x=1520, y=750)
+        self.btn_start.place(x=1530, y=350)
+        self.btn_back.place(x=1, y=1)
         
         print("Test Stopped.")
             
@@ -325,36 +334,34 @@ class FourthPage(tk.Frame):
         
         self.pb = ttk.Progressbar(self, orient='horizontal',
                                     mode='determinate',
-                                    length=400)
+                                    length=600)
         self.pb.place(x=650,y=50)
         self.pb.step(0)
                 
         self.lbl_img = tk.Label(self, fg="#ffffff", bg='#ffffff')
         self.lbl_img.place(x=650,y=200)
 
-        btn_back = tk.Button(self, text="<<", font=("Arial", 20),relief="flat", bg='#fafafa',command=lambda: controller.show_frame(SecondPage))
-        btn_back.place(x=1, y=1)      
+        self.btn_back = tk.Button(self, text="<<", font=("Arial", 20),relief="flat", bg='#fafafa',command=lambda: controller.show_frame(SecondPage))
+        self.btn_back.place(x=1, y=1)      
         
         self.btn_start = tk.Button(self, text="O", bg='#fafafa', font=("Arial", 25), relief="flat",command = async_handler(self.play_gif)) #lambda:[self.play_gif, record]) # record 
-        self.btn_start.place(x=1540, y=350)
+        self.btn_start.place(x=1555, y=350)
         
         self.btn_result = tk.Button(self, text="Resultados", relief="flat",font=("Arial", 20), command=lambda: controller.show_frame(FivePage))
         self.btn_result.place(x=1500, y=500)
         self.btn_result["state"] = "disabled"
         
-        btn_click = tk.Button(self, text="                      ", font=("Arial", 20), relief="flat",bg="#036ffc", height=4,command=self.take_time)
-        btn_click.place(x=1500, y=700)
-        
         self.n = 1
         self.last = 0
         
         self.bind('<Enter>', self.enter)
-        
+        self.bind('<Button-1>', self.take_time)
+
     def enter(self, event):
         if mixer.music.get_busy() and recording==False:
             mixer.music.stop()
             
-    def take_time(self):
+    def take_time(self, event):
         global t_details 
         t_details["time"].append(datetime.datetime.now()) # transition start time
         t_details["tag"].append("click")
@@ -379,6 +386,11 @@ class FourthPage(tk.Frame):
         
 
     async def play_gif(self): 
+        
+        self.btn_back.place_forget()
+        self.btn_start.place_forget()
+        #self.btn_result.place_forget()
+
         global recording
         global auxCount
         global t_details
@@ -413,7 +425,7 @@ class FourthPage(tk.Frame):
         # Save the images as a GIF - asegurate de guardar el formato correcto de imagen
         #images[0].save("gifs/p3-8-min.gif", save_all=True, append_images=images[1:], duration=200, loop=1)
     
-        
+        self.pb.place_forget()
         recording = True
         mixer.music.play(0)
         self.btn_result["state"] = "normal"
@@ -442,6 +454,10 @@ class FourthPage(tk.Frame):
         mixer.music.stop()
         #f.close()
         self.btn_start["state"] = "normal"
+
+        self.pb.place(x=650,y=50)
+        self.btn_start.place(x=1555, y=350)
+        self.btn_back.place(x=1, y=1)
         
         print("Recording Stopped.")
    
