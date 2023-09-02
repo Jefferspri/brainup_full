@@ -113,25 +113,10 @@ class MuseConex(tk.Frame):
         await asyncio.sleep(3)
         
         while self.btn_test_state == 1:
+            # EEG processing raw  - 'TP9', 'AF7', 'AF8', 'TP10', 'aux' 
+            temp_raw = all_raw_data['eeg'][-768:]
+            raw = pd.DataFrame(temp_raw, columns = ['TP9','AF7','AF8',"TP10","aux"])
         
-            # EEG processing raw  - 'TP9', 'AF7', 'AF8', 'TP10'
-            raw_data = {}
-            raw_data['time'] = all_raw_data['time'][-768:]
-            raw_data['TP9'] = []
-            raw_data['AF7'] = []
-            raw_data['AF8'] = []
-            raw_data['TP10'] = []
-            
-            for raw in all_raw_data['eeg'][-768:]:
-                raw_data['TP9'].append(raw[0])
-                raw_data['AF7'].append(raw[1])
-                raw_data['AF8'].append(raw[2])
-                raw_data['TP10'].append(raw[3])
-                
-            raw = pd.DataFrame.from_dict(raw_data)
-            
-            raw["time"] = raw["time"].map(lambda x: datetime.datetime.fromtimestamp(x))
-                
             fs = 256
             (f, eeg) = signal.welch(raw[channels[self.bar_channel]], fs, nperseg = raw.shape[0])
             
@@ -446,7 +431,7 @@ class FourthPage(tk.Frame):
                     recording = False
                     break
                 
-            await asyncio.sleep(0.19)
+            await asyncio.sleep(0.198)
        
         
         # Closing process

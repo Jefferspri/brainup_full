@@ -18,9 +18,9 @@ commands = [
     ]
 
 try: 
-    #p_stream = Popen(commands[0], shell=True)
+    p_stream = Popen(commands[0], shell=True)
     p_tkinter = Popen(commands[1], shell=True)
-    #p_stream.wait()
+    p_stream.wait()
     p_tkinter.wait()
 except KeyboardInterrupt:
     adapter.Powered = False
