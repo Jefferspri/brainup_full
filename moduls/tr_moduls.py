@@ -110,7 +110,13 @@ def clean_trs(t_details):
             t_details["flag"].append("")
             t_details["tr"].append(float('nan'))
             
-    
+    # len correction
+    min_len = min(len(t_details["time"]), len(t_details["tag"]), len(t_details["flag"]), len(t_details["tr"]))
+    t_details["time"] = t_details["time"][:min_len]
+    t_details["tag"] = t_details["tag"][:min_len]
+    t_details["flag"] = t_details["flag"][:min_len]
+    t_details["tr"] = t_details["tr"][:min_len]
+
     #for i in range(len(t_details["tag"])):
     #print(len(t_details["tag"]), len(t_details["flag"]), len(t_details["tr"]), len(t_details["time"])) 
         

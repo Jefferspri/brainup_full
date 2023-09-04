@@ -273,7 +273,7 @@ class ThirdPage(tk.Frame):
         self.btn_back.place_forget()
 
         images = []
-        lst_random_images = self.creador_de_lista_final(3) # 15
+        lst_random_images = self.creador_de_lista_final(15) # 15
         
         len_list_images = len(lst_random_images)
         for l in range (len_list_images - 1):
@@ -366,7 +366,7 @@ class FourthPage(tk.Frame):
 
             lista.insert(random.randrange(0,10),'pics/grays/mt{}.jpg'.format(now_rand_mt))
             last_rand_mt = now_rand_mt
-            lista_final = lista_final + lista
+            lista_final.extend(lista)
         return lista_final
         
 
@@ -431,7 +431,7 @@ class FourthPage(tk.Frame):
                     recording = False
                     break
                 
-            await asyncio.sleep(0.198)
+            await asyncio.sleep(0.19)
        
         
         # Closing process
@@ -696,19 +696,20 @@ def eeg_writer():
     description = info.desc()
     
     fs = int(info.nominal_srate())
+    max_samp = int(SHIFT_LENGTH * fs)
     # capture
     #inicio = time.time()
-    while True:
+    while 1:
         try:
             """ 3.1 ACQUIRE DATA """
             # Obtain EEG data from the LSL stream
             if recording:
                 eeg_data, timestamp = inlet.pull_chunk(
-                    timeout=1, max_samples=1)#int(SHIFT_LENGTH * fs))
+                    timeout=1, max_samples = max_samp)
                 #print(timestamp[0])
 
-                all_raw_data['eeg'] = all_raw_data['eeg'] + eeg_data
-                all_raw_data['time'] = all_raw_data['time'] + timestamp
+                all_raw_data['eeg'].extend(eeg_data)
+                all_raw_data['time'].extend(timestamp)
             else:
                 time.sleep(2)
                 if adapter.Powered == False:
@@ -720,9 +721,6 @@ def eeg_writer():
             time.sleep(5)
             # if down bluehoot
             if adapter.Powered == False:
-                print(min(var_time))
-                print(np.mean(var_time))
-                print(max(var_time))
                 break
             
             print('Looking for an EEG stream...')

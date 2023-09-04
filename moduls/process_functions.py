@@ -84,17 +84,17 @@ def preprocessimg_data(df_eeg):
     b_notch = [0.9879, -0.1937, 0.9879]
     a_notch = [1.0, -0.1937, 0.9758]
     size = df_eeg['TP9'].shape[0]
-    df_eeg['TP9_fil'] = filtfilt(b_notch, a_notch, df_eeg['TP9'])
-    df_eeg['TP10_fil'] = filtfilt(b_notch, a_notch, df_eeg['TP10'])
-    df_eeg['AF7_fil'] = filtfilt(b_notch, a_notch, df_eeg['AF7'])
-    df_eeg['AF8_fil'] = filtfilt(b_notch, a_notch, df_eeg['AF8'])
+    df_eeg['TP9_fil'] = filtfilt(b_notch, a_notch, df_eeg['TP9'], padlen=size-1)
+    df_eeg['TP10_fil'] = filtfilt(b_notch, a_notch, df_eeg['TP10'], padlen=size-1)
+    df_eeg['AF7_fil'] = filtfilt(b_notch, a_notch, df_eeg['AF7'], padlen=size-1)
+    df_eeg['AF8_fil'] = filtfilt(b_notch, a_notch, df_eeg['AF8'], padlen=size-1)
 
     # Applying high pass filter in 0.5Hz.
     b_high, a_high = signal.butter(3, 0.5, 'hp', fs=256)
-    df_eeg['TP9_fil'] = filtfilt(b_high, a_high, df_eeg['TP9_fil'])
-    df_eeg['TP10_fil'] = filtfilt(b_high, a_high, df_eeg['TP10_fil'])
-    df_eeg['AF7_fil'] = filtfilt(b_high, a_high, df_eeg['AF7_fil'])
-    df_eeg['AF8_fil'] = filtfilt(b_high, a_high, df_eeg['AF8_fil'])
+    df_eeg['TP9_fil'] = filtfilt(b_high, a_high, df_eeg['TP9_fil'], padlen=size-1)
+    df_eeg['TP10_fil'] = filtfilt(b_high, a_high, df_eeg['TP10_fil'], padlen=size-1)
+    df_eeg['AF7_fil'] = filtfilt(b_high, a_high, df_eeg['AF7_fil'], padlen=size-1)
+    df_eeg['AF8_fil'] = filtfilt(b_high, a_high, df_eeg['AF8_fil'], padlen=size-1)
     
     # Filter eye noise
     df_eeg['TP9_fil'] = sp.eeg.ATAR(df_eeg['TP9_fil'], wv='db9', winsize=128, beta=0.2,thr_method='ipr',OptMode='soft', verbose=1)
