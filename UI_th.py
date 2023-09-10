@@ -36,6 +36,7 @@ from matplotlib.backends.backend_tkagg import (
     FigureCanvasTkAgg,
     NavigationToolbar2Tk
 )
+import numba
 
 # own moduls
 from moduls import tr_moduls as trm
@@ -45,6 +46,49 @@ from moduls import process_functions as pfunc
 import warnings
 warnings.filterwarnings("ignore")
 
+class UserInfo(tk.Frame):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.configure(bg='#ffffff')
+        
+        label_desc = tk.Label(self, text="Información de usuario",fg="#4d4e4f", bg='#ffffff', font=("Arial", 24))
+        label_desc.place(x=760, y=90)
+
+        self.lbl_exp_num = tk.Label(self, text="Número de experimento:",fg="#4d4e4f", bg='#ffffff', font=("Arial", 18))
+        self.lbl_exp_num.place(x=455, y=150)
+        self.ent_exp_num = ttk.Entry(self, width=40, font=('Arial 18'))
+        self.ent_exp_num.place(x=730, y=150)
+
+        self.lbl_genre = tk.Label(self, text="Género:",fg="#4d4e4f", bg='#ffffff', font=("Arial", 18))
+        self.lbl_genre.place(x=630, y=200)
+        self.ent_genre = ttk.Entry(self, width=40, font=('Arial 18'))
+        self.ent_genre.place(x=730, y=200)
+
+        self.lbl_age = tk.Label(self, text="Edad:",fg="#4d4e4f", bg='#ffffff', font=("Arial", 18))
+        self.lbl_age.place(x=650, y=250)
+        self.ent_age = ttk.Entry(self, width=40, font=('Arial 18'))
+        self.ent_age.place(x=730, y=250)
+
+        self.lbl_state = tk.Label(self, text="Estado de alerta:",fg="#4d4e4f", bg='#ffffff', font=("Arial", 18))
+        self.lbl_state.place(x=532, y=300)
+        self.ent_state = ttk.Entry(self, width=40, font=('Arial 18'))
+        self.ent_state.place(x=730, y=300)
+
+        self.btn_save = tk.Button(self, text="Guardar", font=("Arial", 20), relief="flat",command=self.save_user_info)
+        self.btn_save.place(x=875, y=370)
+
+        self.btn_to_muse_conex = tk.Button(self, text="Prueba de conexión", font=("Arial", 20), relief="flat",command=lambda: controller.show_frame(MuseConex))
+        self.btn_to_muse_conex.place(x=800, y=470)
+
+    def save_user_info(self):
+        global user_info
+
+        user_info = self.ent_exp_num.get()+"_"+self.ent_genre.get()+"_"+self.ent_age.get()+"_"+self.ent_state.get()
+        tk.messagebox.showinfo(message="Guardado", title="Mensaje")
+
+
+
 class MuseConex(tk.Frame):
 
     def __init__(self, parent, controller):
@@ -53,6 +97,9 @@ class MuseConex(tk.Frame):
         
         label_desc = tk.Label(self, text="Prueba de conexión - Muse",fg="#4d4e4f", bg='#ffffff', font=("Arial", 20))
         label_desc.pack()
+
+        btn_back = tk.Button(self, text="<<", font=("Arial", 20),relief="flat", bg='#fafafa',command=lambda: controller.show_frame(UserInfo))
+        btn_back.place(x=1, y=1)
         
         self.btn_test = tk.Button(self, text="Graficar", font=("Arial", 20),relief="flat", command = async_handler(self.welch_garph))
         self.btn_test.place(x=20, y=950)
@@ -144,13 +191,14 @@ class FirstPage(tk.Frame):
                              Esta es una prueba de atención, prueba gradCPT.
                              En ella observarás la transición de imágenes de forma gradual,
                              imágenes de ciudades y montañas. Cada vez que veas la 
-                             imagen de una ciudad, deberas presionar el botón azul.
+                             imagen de una ciudad deberás hacer click, si es una montaña
+                             no debes hacer click.
                                              
                              Presiona "Continuar" para ver las imágenes que encontraras
                              en la prueba. Luego, "Entrenar" para acostumbrarse a la 
                              prueba. Finalmente, "Test"" para hacer la prueba completa.""",
                              fg="#384655", bg='#ffffff', font=("Arial", 24))
-        label_desc.place(x=190, y=180)
+        label_desc.place(x=190, y=175)
         
         btn_back = tk.Button(self, text="<<", font=("Arial", 20),relief="flat", bg='#fafafa',command=lambda: controller.show_frame(MuseConex))
         btn_back.place(x=1, y=1)
@@ -369,7 +417,7 @@ class FourthPage(tk.Frame):
             lista_final.extend(lista)
         return lista_final
         
-
+    
     async def play_gif(self): 
         
         self.btn_back.place_forget()
@@ -416,14 +464,15 @@ class FourthPage(tk.Frame):
         self.btn_result["state"] = "normal"
         print("Recording Started.")
         
-        inicio = time.time()
+        #inicio = time.time()
         counter = 1
+
         for i in range(len(images)):
             self.lbl_img.config(image = images[i])
             self.update()
             if i%4 == 0:
-                print(time.time()- inicio)
-                inicio = time.time()
+                #print(time.time()- inicio)
+                #inicio = time.time()
                 t_details["time"].append(datetime.datetime.now()) # transition start time
                 t_details["tag"].append(lst_random_images[counter]) # save name of image destination, ct o mt
                 counter += 1
@@ -432,7 +481,7 @@ class FourthPage(tk.Frame):
                     break
                 
             await asyncio.sleep(0.19)
-       
+        
         
         # Closing process
         recording = False
@@ -475,12 +524,12 @@ class FivePage(tk.Frame):
         frame1 = tk.Frame(self, width=300, height=200, background="bisque")
         frame1.place(x=12, y=150) 
 
-        frame2 = tk.Frame(self, width=200, height=700, background="bisque")
-        frame2.place(x=470, y=0)
+        frame2 = tk.Frame(self, width=250, height=700, background="bisque")
+        frame2.place(x=600, y=0)
 
         # create a figure
-        figure = Figure(figsize=(4.5, 2.5), dpi=100)
-        figure2 = Figure(figsize=(3.5, 3.75), dpi=100)
+        figure = Figure(figsize=(6, 4), dpi=100)
+        figure2 = Figure(figsize=(6, 8), dpi=100)
 
         # create FigureCanvasTkAgg object
         self.figure_canvas = FigureCanvasTkAgg(figure, frame1)
@@ -509,17 +558,18 @@ class FivePage(tk.Frame):
             recording = False
             mixer.music.stop()
             #f.close()
-        
+       
     def show_tr(self):
         global t_details
         global all_raw_data
+        global user_info
 
         t_details["tr"].append(float('nan'))
         t_details["flag"].append("")
 
         details = trm.clean_trs(t_details)
         df_details = pd.DataFrame.from_dict(details)
-        df_details.to_csv(fileTimes, index=False)
+        df_details.to_csv("exports/times_"+user_info+".csv", index=False)
         
         # mean TR # this TR no consider the range 0.56 to 1.12
         lst_re_times = [i for i in details["tr"] if not math.isnan(i)]
@@ -553,7 +603,7 @@ class FivePage(tk.Frame):
             
         all_raw_data.pop('eeg') # drop column with data now separte in various columns
         df_raw = pd.DataFrame.from_dict(all_raw_data)
-        df_raw.to_csv(filePath, index=False)
+        df_raw.to_csv("exports/eeg_"+user_info+".csv", index=False)
         
         # Formating Data
             # df_raw  : eeg data
@@ -651,12 +701,12 @@ class App(tk.Tk):
         window.grid_columnconfigure(0, minsize=1850)
 
         self.frames = {}
-        for F in (MuseConex, FirstPage, SecondPage, ThirdPage, FourthPage, FivePage):
+        for F in (UserInfo, MuseConex, FirstPage, SecondPage, ThirdPage, FourthPage, FivePage):
             frame = F(window, self)
             self.frames[F] = frame
             frame.grid(row=0, column=0, sticky="nsew")
 
-        self.show_frame(MuseConex)
+        self.show_frame(UserInfo)
         
         
     def show_frame(self, page):
@@ -737,17 +787,10 @@ def eeg_writer():
                      
 
 
-def on_closing():
-    global end
-    global app
-    end = True
-    app.destroy()
-    
     
 def task_tk():
     try:
         app = App()
-        #app.protocol("WM_DELETE_WINDOW", on_closing)
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
         loop.run_until_complete(async_mainloop(app))

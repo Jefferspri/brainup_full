@@ -1,128 +1,86 @@
 time,tag,tr,flag
-2023-09-04 11:26:53.121786,ct,,
-2023-09-04 11:26:53.959887,ct,,omission error
-2023-09-04 11:26:54.811635,ct,,omission error
-2023-09-04 11:26:55.648182,ct,,omission error
-2023-09-04 11:26:56.487660,ct,,omission error
-2023-09-04 11:26:57.330798,ct,,omission error
-2023-09-04 11:26:58.172220,ct,,omission error
-2023-09-04 11:26:59.008627,mt,,correct omission
-2023-09-04 11:26:59.847099,ct,,omission error
-2023-09-04 11:27:00.672420,ct,,omission error
-2023-09-04 11:27:01.514310,ct,,omission error
-2023-09-04 11:27:02.354103,ct,,omission error
-2023-09-04 11:27:03.209619,ct,,omission error
-2023-09-04 11:27:04.054845,ct,,omission error
-2023-09-04 11:27:04.880789,ct,,omission error
-2023-09-04 11:27:05.718857,mt,,correct omission
-2023-09-04 11:27:06.555065,ct,,omission error
-2023-09-04 11:27:07.395109,ct,,omission error
-2023-09-04 11:27:08.236672,ct,,omission error
-2023-09-04 11:27:09.082276,mt,,correct omission
-2023-09-04 11:27:09.925003,ct,,omission error
-2023-09-04 11:27:10.771969,ct,,omission error
-2023-09-04 11:27:11.624574,ct,,omission error
-2023-09-04 11:27:12.463457,ct,,omission error
-2023-09-04 11:27:13.304815,ct,,omission error
-2023-09-04 11:27:14.141124,ct,,omission error
-2023-09-04 11:27:14.971594,ct,,omission error
-2023-09-04 11:27:15.801483,ct,,omission error
-2023-09-04 11:27:16.637310,ct,,omission error
-2023-09-04 11:27:17.476457,mt,,correct omission
-2023-09-04 11:27:18.320865,ct,,omission error
-2023-09-04 11:27:19.163482,ct,,omission error
-2023-09-04 11:27:20.009973,ct,,omission error
-2023-09-04 11:27:20.852271,ct,,omission error
-2023-09-04 11:27:21.681853,ct,,omission error
-2023-09-04 11:27:22.514023,ct,,omission error
-2023-09-04 11:27:23.346177,ct,,omission error
-2023-09-04 11:27:24.193192,ct,,omission error
-2023-09-04 11:27:25.037383,ct,,omission error
-2023-09-04 11:27:25.878436,ct,,omission error
-2023-09-04 11:27:26.716356,ct,,omission error
-2023-09-04 11:27:27.552164,ct,,omission error
-2023-09-04 11:27:28.391253,ct,,omission error
-2023-09-04 11:27:29.220918,ct,,omission error
-2023-09-04 11:27:30.051148,ct,,omission error
-2023-09-04 11:27:30.899271,ct,,omission error
-2023-09-04 11:27:31.740868,ct,,omission error
-2023-09-04 11:27:32.581786,ct,,omission error
-2023-09-04 11:27:33.422683,mt,,correct omission
-2023-09-04 11:27:34.260848,ct,,omission error
-2023-09-04 11:27:35.097098,ct,,omission error
-2023-09-04 11:27:35.936438,ct,,omission error
-2023-09-04 11:27:36.777161,ct,,omission error
-2023-09-04 11:27:37.598473,ct,,omission error
-2023-09-04 11:27:38.438003,ct,,omission error
-2023-09-04 11:27:39.288744,ct,,omission error
-2023-09-04 11:27:40.144675,ct,,omission error
-2023-09-04 11:27:40.974572,ct,,omission error
-2023-09-04 11:27:41.808838,mt,,correct omission
-2023-09-04 11:27:42.639205,ct,,omission error
-2023-09-04 11:27:43.490456,ct,,omission error
-2023-09-04 11:27:44.341863,ct,,omission error
-2023-09-04 11:27:45.181505,ct,,omission error
-2023-09-04 11:27:46.015998,ct,,omission error
-2023-09-04 11:27:46.857497,ct,,omission error
-2023-09-04 11:27:47.702921,ct,,omission error
-2023-09-04 11:27:48.546267,ct,,omission error
-2023-09-04 11:27:49.390057,ct,,omission error
-2023-09-04 11:27:50.225736,mt,,correct omission
-2023-09-04 11:27:51.065034,ct,,omission error
-2023-09-04 11:27:51.895251,ct,,omission error
-2023-09-04 11:27:52.756042,ct,,omission error
-2023-09-04 11:27:53.596850,ct,,omission error
-2023-09-04 11:27:54.430981,ct,,omission error
-2023-09-04 11:27:55.268193,ct,,omission error
-2023-09-04 11:27:56.098974,ct,,omission error
-2023-09-04 11:27:56.942148,ct,,omission error
-2023-09-04 11:27:57.781400,mt,,correct omission
-2023-09-04 11:27:58.620724,ct,,omission error
-2023-09-04 11:27:59.459548,ct,,omission error
-2023-09-04 11:28:00.301752,ct,,omission error
-2023-09-04 11:28:01.139246,ct,,omission error
-2023-09-04 11:28:01.970118,ct,,omission error
-2023-09-04 11:28:02.815499,ct,,omission error
-2023-09-04 11:28:03.659540,ct,,omission error
-2023-09-04 11:28:04.508891,mt,,correct omission
-2023-09-04 11:28:05.344139,ct,,omission error
-2023-09-04 11:28:06.177458,ct,,omission error
-2023-09-04 11:28:07.018078,ct,,omission error
-2023-09-04 11:28:07.857467,ct,,omission error
-2023-09-04 11:28:08.701169,ct,,omission error
-2023-09-04 11:28:09.522293,ct,,omission error
-2023-09-04 11:28:10.353819,ct,,omission error
-2023-09-04 11:28:11.186882,ct,,omission error
-2023-09-04 11:28:12.027935,ct,,omission error
-2023-09-04 11:28:12.870804,ct,,omission error
-2023-09-04 11:28:13.568330,click,,
-2023-09-04 11:28:13.720225,ct,0.697526,correct comission
-2023-09-04 11:28:14.637729,click,,
-2023-09-04 11:28:14.563632,ct,0.917504,correct comission
-2023-09-04 11:28:15.310423,click,,
-2023-09-04 11:28:15.404608,mt,,comission error
-2023-09-04 11:28:15.969516,click,,
-2023-09-04 11:28:16.256061,ct,0.564908,correct comission
-2023-09-04 11:28:16.606254,click,,
-2023-09-04 11:28:17.104586,ct,0.350193,correct comission
-2023-09-04 11:28:17.857406,click,,
-2023-09-04 11:28:17.946053,ct,0.75282,correct comission
-2023-09-04 11:28:18.542350,click,,
-2023-09-04 11:28:18.780831,ct,0.596297,correct comission
-2023-09-04 11:28:19.211982,click,,
-2023-09-04 11:28:19.620166,mt,,comission error
-2023-09-04 11:28:20.677991,click,,
-2023-09-04 11:28:20.467710,ct,1.057825,correct comission
-2023-09-04 11:28:21.570499,click,,
-2023-09-04 11:28:21.312861,ct,1.102789,correct comission
-2023-09-04 11:28:22.320187,click,,
-2023-09-04 11:28:22.158129,ct,1.007326,correct comission
-2023-09-04 11:28:23.002219,ct,,omission error
-2023-09-04 11:28:23.850129,ct,,omission error
-2023-09-04 11:28:24.689385,ct,,omission error
-2023-09-04 11:28:25.534657,ct,,omission error
-2023-09-04 11:28:26.375830,ct,,omission error
-2023-09-04 11:28:27.210889,ct,,omission error
-2023-09-04 11:28:28.042010,ct,,omission error
-2023-09-04 11:28:28.895625,mt,,correct omission
-2023-09-04 11:28:30.926807,ct,,omission error
+2023-09-06 11:11:21.583131,ct,,
+2023-09-06 11:11:22.424272,ct,,omission error
+2023-09-06 11:11:23.291477,click,,
+2023-09-06 11:11:23.263804,ct,0.867205,correct comission
+2023-09-06 11:11:24.029195,click,,
+2023-09-06 11:11:24.098707,ct,0.765391,correct comission
+2023-09-06 11:11:24.705650,click,,
+2023-09-06 11:11:24.940420,ct,0.606943,correct comission
+2023-09-06 11:11:25.494381,click,,
+2023-09-06 11:11:25.784910,ct,0.553961,correct comission
+2023-09-06 11:11:26.164314,click,,
+2023-09-06 11:11:26.623022,mt,,comission error
+2023-09-06 11:11:27.456824,ct,,omission error
+2023-09-06 11:11:28.041096,click,,
+2023-09-06 11:11:28.295228,ct,0.584272,correct comission
+2023-09-06 11:11:28.755873,click,,
+2023-09-06 11:11:29.128125,ct,0.460645,correct comission
+2023-09-06 11:11:30.200795,click,,
+2023-09-06 11:11:29.962948,ct,1.07267,correct comission
+2023-09-06 11:11:30.808609,click,,
+2023-09-06 11:11:30.810203,ct,0.845661,correct comission
+2023-09-06 11:11:31.443593,click,,
+2023-09-06 11:11:31.659757,ct,0.63339,correct comission
+2023-09-06 11:11:32.075716,click,,
+2023-09-06 11:11:32.499010,ct,0.415959,correct comission
+2023-09-06 11:11:32.894674,click,,
+2023-09-06 11:11:33.337424,ct,0.395664,correct comission
+2023-09-06 11:11:34.058824,click,,
+2023-09-06 11:11:34.190300,ct,0.7214,correct comission
+2023-09-06 11:11:34.698373,click,,
+2023-09-06 11:11:35.039007,ct,0.508073,correct comission
+2023-09-06 11:11:35.472200,click,,
+2023-09-06 11:11:35.873186,ct,0.433193,correct comission
+2023-09-06 11:11:36.619769,click,,
+2023-09-06 11:11:36.708659,mt,,comission error
+2023-09-06 11:11:37.365785,click,,
+2023-09-06 11:11:37.570244,mt,,comission error
+2023-09-06 11:11:38.075032,click,,
+2023-09-06 11:11:38.415816,ct,0.504788,correct comission
+2023-09-06 11:11:39.287255,click,,
+2023-09-06 11:11:39.248429,ct,0.871439,correct comission
+2023-09-06 11:11:40.029432,click,,
+2023-09-06 11:11:40.089360,ct,0.781003,correct comission
+2023-09-06 11:11:40.715414,click,,
+2023-09-06 11:11:40.931980,ct,0.626054,correct comission
+2023-09-06 11:11:41.252995,click,,
+2023-09-06 11:11:41.791046,ct,0.321015,correct comission
+2023-09-06 11:11:42.584796,click,,
+2023-09-06 11:11:42.650287,ct,0.79375,correct comission
+2023-09-06 11:11:43.493784,ct,,omission error
+2023-09-06 11:11:44.341568,ct,,omission error
+2023-09-06 11:11:45.182153,ct,,omission error
+2023-09-06 11:11:46.028092,ct,,omission error
+2023-09-06 11:11:46.873545,ct,,omission error
+2023-09-06 11:11:47.713605,ct,,omission error
+2023-09-06 11:11:48.548209,ct,,omission error
+2023-09-06 11:11:49.376341,ct,,omission error
+2023-09-06 11:11:50.208583,ct,,omission error
+2023-09-06 11:11:51.042752,mt,,correct omission
+2023-09-06 11:11:51.880430,ct,,omission error
+2023-09-06 11:11:52.712504,ct,,omission error
+2023-09-06 11:11:53.543461,ct,,omission error
+2023-09-06 11:11:54.383396,ct,,omission error
+2023-09-06 11:11:55.224340,ct,,omission error
+2023-09-06 11:11:56.050652,ct,,omission error
+2023-09-06 11:11:56.894914,ct,,omission error
+2023-09-06 11:11:57.740024,ct,,omission error
+2023-09-06 11:11:58.584757,ct,,omission error
+2023-09-06 11:11:59.417003,ct,,omission error
+2023-09-06 11:12:00.252240,ct,,omission error
+2023-09-06 11:12:01.084713,ct,,omission error
+2023-09-06 11:12:01.931956,mt,,correct omission
+2023-09-06 11:12:02.789761,ct,,omission error
+2023-09-06 11:12:03.632604,ct,,omission error
+2023-09-06 11:12:04.469028,mt,,correct omission
+2023-09-06 11:12:05.304161,ct,,omission error
+2023-09-06 11:12:06.149654,ct,,omission error
+2023-09-06 11:12:06.995800,ct,,omission error
+2023-09-06 11:12:07.840730,ct,,omission error
+2023-09-06 11:12:08.680101,ct,,omission error
+2023-09-06 11:12:09.534191,ct,,omission error
+2023-09-06 11:12:10.381695,ct,,omission error
+2023-09-06 11:12:11.212790,ct,,omission error
+2023-09-06 11:12:12.053168,ct,,omission error
+2023-09-06 11:12:12.922398,ct,,omission error
