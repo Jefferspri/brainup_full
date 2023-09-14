@@ -36,7 +36,6 @@ from matplotlib.backends.backend_tkagg import (
     FigureCanvasTkAgg,
     NavigationToolbar2Tk
 )
-import numba
 
 # own moduls
 from moduls import tr_moduls as trm
