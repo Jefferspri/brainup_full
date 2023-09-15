@@ -95,7 +95,9 @@ def clean_trs(t_details):
         elif t_details["tag"][i] == "click" and t_details["tag"][i+1] == "mt":
             t_details["tr"].append(float('nan'))
             t_details["flag"].append("")
-            t_details["tr"].append(float('nan'))
+            tr = t_details["time"][i] - t_details["time"][i-1]
+            tr_seconds = tr.total_seconds()
+            t_details["tr"].append(tr_seconds)
             t_details["flag"].append("comission error")
         # Correct when dont click for mountain
         elif (t_details["tag"][i] == "ct" and t_details["tag"][i+1] == "mt") or (t_details["tag"][i] == "mt" and t_details["tag"][i+1] == "mt"):
