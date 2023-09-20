@@ -42,8 +42,8 @@ from moduls import tr_moduls as trm
 from moduls.neurofeedback import record
 from moduls import process_functions as pfunc
 
-import warnings
-warnings.filterwarnings("ignore")
+#import warnings
+#warnings.filterwarnings("ignore")
 
 class UserInfo(tk.Frame):
 
@@ -748,27 +748,34 @@ def eeg_writer():
     max_samp = int(SHIFT_LENGTH * fs)
     # capture
     #inicio = time.time()
+    timestamp = [0 for i in range(205)] # inicialize timestamp
+    cont_zero_data = 0
+
     while 1:
-        try:
-            """ 3.1 ACQUIRE DATA """
-            # Obtain EEG data from the LSL stream
-            if recording:
-                eeg_data, timestamp = inlet.pull_chunk(
-                    timeout=1, max_samples = max_samp)
-                #print(timestamp[0])
+        #try:
+        """ 3.1 ACQUIRE DATA """
+        # Obtain EEG data from the LSL stream
+        if recording:
+            eeg_data, timestamp = inlet.pull_chunk(
+                timeout=1, max_samples = max_samp)
+            #print(timestamp[0])
 
-                all_raw_data['eeg'].extend(eeg_data)
-                all_raw_data['time'].extend(timestamp)
-            else:
-                time.sleep(2)
-                if adapter.Powered == False:
-                    break
-
+            all_raw_data['eeg'].extend(eeg_data)
+            all_raw_data['time'].extend(timestamp)
+        else:
+            time.sleep(2)
+            if adapter.Powered == False:
+                break
         
-        except IndexError:
+        if len(timestamp) < 204:
             # Sleep 5 sec.
-            time.sleep(5)
-            # if down bluehoot
+            if cont_zero_data == 0:
+                time.sleep(5)
+            else:
+                time.sleep(1)
+            cont_zero_data +=1
+
+            # if down bluetooth
             if adapter.Powered == False:
                 break
             
@@ -783,7 +790,11 @@ def eeg_writer():
                 inlet = StreamInlet(streams[0], max_chunklen=12, recover=True)
                 info = inlet.info()
                 fs = int(info.nominal_srate())
-                     
+        else:
+            cont_zero_data = 0
+        
+        
+    print("End of while eeg")        
 
 
     
