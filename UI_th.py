@@ -226,7 +226,7 @@ class SecondPage(tk.Frame):
         
         self.lbl_img = tk.Label(self, image=img, fg="#ffffff", bg='#ffffff')
         self.lbl_img.image = img 
-        self.lbl_img.place(x=650,y=200)
+        self.lbl_img.place(x=750,y=200)
         
         
         Button = tk.Button(self, text="<<", font=("Arial", 20),relief="flat", bg='#ffffff',command=lambda: controller.show_frame(FirstPage))
@@ -278,7 +278,7 @@ class ThirdPage(tk.Frame):
         self.configure(bg='#ffffff')
         
         self.lbl_img = tk.Label(self, fg="#ffffff", bg='#ffffff')
-        self.lbl_img.place(x=650,y=200)
+        self.lbl_img.place(x=750,y=200)
 
         self.btn_back = tk.Button(self, text="<<", font=("Arial", 20),relief="flat", bg='#fafafa',command=lambda: controller.show_frame(SecondPage))
         self.btn_back.place(x=1, y=1)
@@ -371,7 +371,7 @@ class FourthPage(tk.Frame):
         self.pb.step(0)
                 
         self.lbl_img = tk.Label(self, fg="#ffffff", bg='#ffffff')
-        self.lbl_img.place(x=650,y=200)
+        self.lbl_img.place(x=750,y=200)
 
         self.btn_back = tk.Button(self, text="<<", font=("Arial", 20),relief="flat", bg='#fafafa',command=lambda: controller.show_frame(SecondPage))
         self.btn_back.place(x=1, y=1)      
@@ -421,7 +421,7 @@ class FourthPage(tk.Frame):
         
         self.btn_back.place_forget()
         self.btn_start.place_forget()
-        #self.btn_result.place_forget()
+        self.btn_result.place_forget()
 
         global recording
         global auxCount
@@ -491,6 +491,7 @@ class FourthPage(tk.Frame):
         self.pb.place(x=650,y=50)
         self.btn_start.place(x=1555, y=350)
         self.btn_back.place(x=1, y=1)
+        self.btn_result.place(x=1500, y=500)
         
         print("Recording Stopped.")
    
@@ -528,7 +529,7 @@ class FivePage(tk.Frame):
 
         # create a figure
         figure = Figure(figsize=(6, 4), dpi=100)
-        figure2 = Figure(figsize=(6, 8), dpi=100)
+        figure2 = Figure(figsize=(14, 8), dpi=100)
 
         # create FigureCanvasTkAgg object
         self.figure_canvas = FigureCanvasTkAgg(figure, frame1)
@@ -617,7 +618,7 @@ class FivePage(tk.Frame):
         
         # Wavelet decomposition - Characteristics extraction
         df_features = pfunc.wavelet_packet_decomposition(df_eeg, df_rt_date)
-        
+
         # Date normalization
         df_features = pfunc.normalization(df_features)
         
@@ -697,7 +698,7 @@ class App(tk.Tk):
         window.pack()
 
         window.grid_rowconfigure(0, minsize=1080)
-        window.grid_columnconfigure(0, minsize=1850)
+        window.grid_columnconfigure(0, minsize=1920)
 
         self.frames = {}
         for F in (UserInfo, MuseConex, FirstPage, SecondPage, ThirdPage, FourthPage, FivePage):

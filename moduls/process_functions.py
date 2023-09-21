@@ -116,7 +116,7 @@ def wavelet_packet_decomposition(df_eeg, df_rt_date):
     for i in range(df_rt_date.shape[0]):
         df_trans = df_eeg[(df_eeg['time']>=df_rt_date.iloc[i,0]) & (df_eeg['time']<df_rt_date.iloc[i,1])]
         
-        if df_trans.shape[0]>=200: # only consider operate feature extracction if we have more than 200 EEG point for 0.8seg
+        if df_trans.shape[0]>=190: # only consider operate feature extracction if we have more than 200 EEG point for 0.8seg
             
             for channel in ['TP9_fil', 'TP10_fil', 'AF7_fil','AF8_fil']:
                 chirp_signal = df_trans[channel]
