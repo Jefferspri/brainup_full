@@ -37,6 +37,12 @@ from matplotlib.backends.backend_tkagg import (
     NavigationToolbar2Tk
 )
 
+# Train personalize class
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report
+from sklearn import svm
+
+
 # own moduls
 from moduls import tr_moduls as trm
 from moduls.neurofeedback import record
@@ -421,7 +427,7 @@ class FourthPage(tk.Frame):
         
         self.btn_back.place_forget()
         self.btn_start.place_forget()
-        self.btn_result.place_forget()
+        #self.btn_result.place_forget()
 
         global recording
         global auxCount
@@ -491,7 +497,7 @@ class FourthPage(tk.Frame):
         self.pb.place(x=650,y=50)
         self.btn_start.place(x=1555, y=350)
         self.btn_back.place(x=1, y=1)
-        self.btn_result.place(x=1500, y=500)
+        #self.btn_result.place(x=1500, y=500)
         
         print("Recording Stopped.")
    
@@ -502,23 +508,23 @@ class FivePage(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.configure(bg='#fafafa')
         
-        self.lbl_tr = tk.Label(self, text="TR promedio: ", bg='#fafafa', font=("Arial", 12))
+        self.lbl_tr = tk.Label(self, text="TR promedio: ", bg='#fafafa', font=("Arial", 14))
         self.lbl_tr.place(x=2, y=5)
-        self.lbl_correct = tk.Label(self, text="Correctas: ", bg='#fafafa', font=("Arial", 12))
-        self.lbl_correct.place(x=2, y=27)
-        self.lbl_lapse = tk.Label(self, text="Errores: ", bg='#fafafa', font=("Arial", 12))
-        self.lbl_lapse.place(x=2, y=49)
-        self.lbl_tr_modelo = tk.Label(self, text="TR promedio modelo: ", bg='#fafafa',fg='#203ee6' ,font=("Arial", 12))
-        self.lbl_tr_modelo.place(x=2, y=82)
-        self.lbl_mae = tk.Label(self, text="MAE: ", bg='#fafafa',fg='#203ee6' , font=("Arial", 12))
-        self.lbl_mae.place(x=2, y=104)
-        self.lbl_p_error = tk.Label(self, text="Error: ", bg='#fafafa',fg='#203ee6' , font=("Arial", 12))
-        self.lbl_p_error.place(x=2, y=126)
+        self.lbl_correct = tk.Label(self, text="Correctas: ", bg='#fafafa', font=("Arial", 14))
+        self.lbl_correct.place(x=2, y=17)
+        self.lbl_lapse = tk.Label(self, text="Errores: ", bg='#fafafa', font=("Arial", 14))
+        self.lbl_lapse.place(x=2, y=59)
+        self.lbl_tr_modelo = tk.Label(self, text="TR promedio modelo: ", bg='#fafafa',fg='#203ee6' ,font=("Arial", 14))
+        self.lbl_tr_modelo.place(x=2, y=92)
+        self.lbl_mae = tk.Label(self, text="MAE: ", bg='#fafafa',fg='#203ee6' , font=("Arial", 14))
+        self.lbl_mae.place(x=2, y=114)
+        self.lbl_p_error = tk.Label(self, text="Error: ", bg='#fafafa',fg='#203ee6' , font=("Arial", 14))
+        self.lbl_p_error.place(x=2, y=136)
 
         btn_home = tk.Button(self, text="Home", font=("Arial", 14), relief="flat",command=lambda: controller.show_frame(FirstPage))
         btn_home.place(x=350, y=5)
         
-        self.btn_result = tk.Button(self, text="Resultados", relief="flat",font=("Arial", 12), command=self.show_tr)
+        self.btn_result = tk.Button(self, text="Resultados", relief="flat",font=("Arial", 14), command=self.show_tr)
         self.btn_result.place(x=350, y=45)
         
         frame1 = tk.Frame(self, width=300, height=200, background="bisque")
@@ -572,19 +578,18 @@ class FivePage(tk.Frame):
         df_details.to_csv("exports/times_"+user_info+".csv", index=False)
         
         # mean TR # this TR no consider the range 0.56 to 1.12
-        lst_re_times = [i for i in details["tr"] if not math.isnan(i)]
-        tr_mean = np.mean(lst_re_times)
+        #lst_re_times = [i for i in details["tr"] if not math.isnan(i)]
+        #tr_mean = np.mean(lst_re_times)
         # correct and lapse
         lst_correct = ["correct" for i in details["flag"] if i == "correct comission" or i == "correct omission"]
         lst_lapse = ["lapse" for i in details["flag"] if i == "comission error" or i=="omission error"]
         # VTC
-        tr_mean_vtc = np.mean(lst_re_times)
-        tr_var_vtc = np.std(lst_re_times)
+        #tr_mean_vtc = np.mean(lst_re_times)
+        #tr_var_vtc = np.std(lst_re_times)
         # values for error trials (CEs and OEs) and
         # correct omissions (COs) were interpolated linearly—that is,
         # by weighting the two neighboring baseline trial RTs.
-    
-        VTC= [abs(i - tr_mean_vtc)/tr_var_vtc  for i in lst_re_times]
+        #VTC= [abs(i - tr_mean_vtc)/tr_var_vtc  for i in lst_re_times]
         
         
         # EEG processing raw  - 'TP9', 'AF7', 'AF8', 'TP10', 'Right AUX'
@@ -611,7 +616,13 @@ class FivePage(tk.Frame):
         df_eeg, df_rt = pfunc.formating_data(df_raw, df_details)
         
         # Generate df rt range date
-        df_rt_date = pfunc.generate_df_rt_date_no_mean(df_rt)
+        df_rt_date = pfunc.generate_df_rt_date(df_rt)
+
+        # Compute VTC
+        df_rt_date = pfunc.compute_VTC(df_rt_date)
+        ori_med = df_rt_date["vtc"].median()
+        # Set clasification: In the zone:1, and Out of the zone:0
+        df_rt_date["class"] = np.where(df_rt_date["vtc"] >= ori_med, 0, 1)
         
         # Preprocessing EEG data
         df_eeg = pfunc.preprocessimg_data(df_eeg)
@@ -621,18 +632,19 @@ class FivePage(tk.Frame):
 
         # Date normalization
         df_features = pfunc.normalization(df_features)
-        
-        # Pivot all channel characteristics to columns
-        df_all_features = pfunc.pivot_channels(df_features)
+
+        # Number of experiment
+        df_features["n_experiment"] = [50 for l in range(df_features.shape[0])]
+        df_all_features = df_features.fillna(0)
         
         # Import SVR model and predict
-        regressor = pickle.load(open('models/svr_model.sav', 'rb'))  
+        regressor = pickle.load(open('models/LGBM-general-regressor.sav', 'rb'))  
         
-        X_test = df_all_features.iloc[:,:df_all_features.shape[1]-4].values
-        y_test = df_all_features.iloc[:,df_all_features.shape[1]-4].values
+        X_test = df_all_features.iloc[:,:df_all_features.shape[1]-4]
+        y_test = df_all_features["rt"]
         
         y_pred = regressor.predict(X_test)
-        x = [i for i in range(len(y_pred))]
+        x = [i for i in range(len(y_test))]
         
         # show standard calculation
         self.lbl_tr.configure(text="TR promedio: {:.4f} seg".format(np.mean(y_test)))
@@ -640,23 +652,35 @@ class FivePage(tk.Frame):
         self.lbl_lapse.configure(text=f"Errores: {len(lst_lapse)}")  
         
         self.lbl_tr_modelo.configure(text="TR promedio modelo: {:.4f} seg".format(np.mean(y_pred)))
-        self.lbl_mae.configure(text="MAE: {:.4f} seg".format(metrics.mean_absolute_error(y_test, y_pred)))
-        self.lbl_p_error.configure(text="Error: {:.2f}%".format(np.mean(100*abs(y_pred-y_test)/y_test)))
+        self.lbl_mae.configure(text="RMSE: {:.2f} ms.".format(1000*(metrics.mean_square_error(y_test, y_pred)**(0.5))))
+        self.lbl_p_error.configure(text="MAPE: {:.2f}%".format(np.mean(100*abs(y_pred-y_test)/y_test)))
         
-        # Plot
+        # Plot TR prediction
         self.axes.clear()
-        major_locator =FixedLocator(x)
-        self.axes.xaxis.set_major_locator(major_locator)
-        self.axes.scatter(x[:21] ,y_test[:21]  , color= '#07D99A') # estándar
-        self.axes.scatter(x[:21]  ,y_pred[:21]  , color='#203ee6', marker="x") # modelo
-        self.axes.set_title('Tiempos de Respuesta', fontsize=10)
-        self.axes.set_ylabel('TR (seg.)')
-        self.axes.set_xlabel('Muestra')
-        self.axes.legend(['real', 'modelo'])
-        self.axes.grid(axis='x')
+        #major_locator =FixedLocator(x)
+        #self.axes.xaxis.set_major_locator(major_locator)
+        self.axes.scatter(y_test, y_pred, color= '#07D99A') # estándar
+        #self.axes.scatter(x[:21]  ,y_pred[:21]  , color='#203ee6', marker="x") # modelo
+        self.axes.set_title('TR actual vs TR predicho', fontsize=10)
+        self.axes.set_ylabel('TR predicho (seg.)')
+        self.axes.set_xlabel('TR actual (seg.)')
+        #self.axes.legend(['real', 'modelo'])
+        #self.axes.grid(axis='x')
         self.figure_canvas.draw()
+
+
+        #----------- SVM training 
+        X = X_test
+        y = y_test 
+
+        X_train, X_test, y_train, y_test = train_test_split(X.values, y, test_size=0.3, random_state = 0)
+        clf = svm.SVC(kernel='poly', degree=3) # Linear Kernel
+        clf.fit(X_train, y_train)
+        y_pred = clf.predict(X_test)
+        print(classification_report(y_test, y_pred))
         
         # Plot all click and power
+        """
         self.axes2.clear()
       
         data = df_features[df_features['channel']=='AF8_fil']
@@ -686,7 +710,7 @@ class FivePage(tk.Frame):
         self.axes2.legend(['tr', 'potencia', 'error', 'correcto'])
         self.axes2.grid(True)
         self.figure_canvas2.draw()
-        
+        """
         
 
 class App(tk.Tk):
