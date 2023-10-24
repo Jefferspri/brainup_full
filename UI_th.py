@@ -863,7 +863,7 @@ fileTimes = "exports/times_data.csv"
 all_raw_data = {'eeg':[], 'time':[]}
 
 # Initialize music
-musi_name = "rap-beats.mp3"
+musi_name = "lofi-mod.mp3"
 mixer.init(44100)
 mixer.music.load(musi_name)
 mixer.music.play(0)
