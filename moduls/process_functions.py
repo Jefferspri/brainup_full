@@ -467,17 +467,3 @@ def normalization(df_features):
 
     return df_features
 
-
-"""
-from sklearn import metrics
-import pickle
-
-regressor = pickle.load(open('rfr_model.sav', 'rb'))  
-
-y_pred = regressor.predict(X_test)
-x = [i for i in range(len(y_pred))] 
-
-print('mae: ',metrics.mean_absolute_error(y_test, y_pred))
-print('%mae:', np.mean(100*abs(y_pred-y_test)/y_test))
-
-"""
